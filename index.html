@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="npt" />
+  <button id="btn">Get a GIF!</button>
+  <img src="#">
+  <script>
+    const img = document.querySelector('img');
+    const btn = document.getElementById("btn");
+    const fetchGif = () => {
+      const npt = document.getElementById("npt").value;
+      fetch('https://api.giphy.com/v1/gifs/translate?api_key=6xwCEAIxq4cEW2EoTilSKWzApWCjf2D1&s=' + npt,
+            {mode: 'cors'}
+           )
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response) {
+        img.src = (response.data.images.original.url);
+      })
+      .catch(() => {
+        img.src = "SEARCH TERM smaller.jpg";
+      });
+    }
+    fetchGif();
+    btn.addEventListener("click", fetchGif);
+  </script>
+</body>
+</html>
